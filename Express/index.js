@@ -25,6 +25,11 @@ const app = express(); //declaro un objeto express
 app.use(express.json()); //permite que express reconozca Jsons en los Request
 
 
+app.all('/users', (req, res)=>{
+    console.log('por aqui pasan todas las request a las que tengan /users');
+    next(); //si no ponemos el next() se queda esperando el servidor hasta no se que..
+});
+
 app.get('/', (req, res)=> { //Estamos obligados a utilizar almenos un @get ya que sino tira error el sv
     res.send("Hello Express");
 });
@@ -34,7 +39,7 @@ app.get('/users', (req, res)=> {
 });
 
 app.get('/users/:id', (req, res)=> { 
-    res.send(req.params); //req Params me toma la variable :ID del path
+    res.send(req.params.id); //req Params me toma la variable :ID del path
 });
 
 app.post('/users', (req, res)=> { 
